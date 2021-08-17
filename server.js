@@ -51,6 +51,6 @@ app.set('view engine', 'hbs');
 
 app.use('/', require('./routes/index'));
 
-app.listen(port, uri, () => {
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 });
