@@ -1,9 +1,132 @@
+@font-face {
+    font-family: 'Goldplay';
+    src: url('../fonts/Goldplay\ Bold.otf');
+}
+
+@font-face {
+    font-family: 'Goldplay Medium';
+    src: url('../fonts/Goldplay\ Medium.otf');
+}
+
+@font-face {
+    font-family: 'Goldplay Regular';
+    src: url('../fonts/Goldplay\ Regular.otf');
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Goldplay';
+    --col-green: #00D19F;
 }
+
+input{
+    font-family: 'Goldplay Medium';
+}
+
+
+main:not(.no-flex){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    padding: 10px;
+}
+
+form.login input{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px auto;
+    font-weight: 100;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+form.login button{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin: 5px auto;
+    border: 1px solid #000;
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+form .box{
+    display: flex;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+form .box input{
+    flex: 0 0 80%;
+    border: none;
+}
+
+form .box button{
+    flex: 0 0 20%;
+    border: none;
+    border-radius: 5px 0 0 5px;
+}
+
+form .box input,
+form .box button{
+    margin: 0;
+}
+
+a.scan-btn{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin: 5px auto;
+    border: 1px solid #000;
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.col-green{
+    color: var(--col-green)!important;
+}
+
+/* .bg-green{
+    background: var(--col-green)!important;
+} */
+
+.remark{
+    font-weight: bold;
+    font-size: 20px;
+    margin: 15px auto;
+}
+
+.student-info{
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+}
+
+.student-info small{
+    font-size: 11px;
+}
+
+.student-info h2{
+    font-family: 'Goldplay Medium';
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+
+
+
 
 #result{
     position: fixed;
@@ -42,13 +165,24 @@ video{
     position: absolute;
     top: 0;
     left: 50%;
-    opacity: 0.2;
+    opacity: .3;
     transform: translateX(-50%)!important;
     width: 100%;
     height: 100%;
     z-index: 1;
     object-fit: cover;
 }
+
+/* .video::after{
+    display: block;
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.664);
+} */
 
 canvas{
     position: absolute;
