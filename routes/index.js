@@ -39,7 +39,7 @@ app.get('/student/insert', async(req, res)=> {
 });
 
 app.get('/student/:confirmID', async(req, res)=> {
-    let confirmID = req.params.confirmID;
+    let confirmID = req.params.confirmID.replace(/\:\/\'\"\-\[\]\&/ig,'');
     let student = await Students.findOne({ confirmID });
 
     if(!student){
@@ -91,7 +91,7 @@ app.patch('/student/update', async(req, res)=>{
 });
 
 app.get('/student/*', (req, res)=> {
-    res.redirect('/no-student');
+    res.redirect('/no-student-found');
 });
 
 app.get('/qr-code/:confirmID', async(req, res)=>{
