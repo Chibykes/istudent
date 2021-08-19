@@ -1,6 +1,9 @@
 class e {
     static hasCamera() {
-        return navigator.mediaDevices ? navigator.mediaDevices.enumerateDevices().then(a=>a.some(a=>"videoinput" === a.kind)).catch(()=>!1) : Promise.resolve(!1)
+        navigator.mediaDevices ? navigator.mediaDevices.enumerateDevices().then(a=>a.some(a=>"videoinput" === a.kind)).catch(()=>!1) : Promise.resolve(!1)
+        console.log(navigator.mediaDevices)
+        console.log(navigator.mediaDevices.enumerateDevices().then(a=>a.some(a=>"videoinput" === a.kind)).catch(()=>!1))
+        return
     }
     constructor(a, b, c=this._onDecodeError, d=this._calculateScanRegion, f="environment") {
         this.$video = a;
