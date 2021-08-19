@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express.Router();
 const Students = require('../models/Students');
+const genID = require('../utils/genID');
 
 app.get('/', (req, res)=>{
     res.render('index', { 
@@ -31,9 +32,20 @@ app.get('/qr-scanner', (req, res)=> {
     });
 });
 
+app.get('/student/insert', async(req, res)=> {
+    res.render('student-create', {
+        title: 'Student create'
+    });
+});
+
 app.get('/student/:confirmID', async(req, res)=> {
     let confirmID = req.params.confirmID;
     let student = await Students.findOne({ confirmID });
+
+    if(!student){
+        res.redirect('/no-student-found');
+        return;
+    }
 
     console.log(student);
     res.render('student', {
@@ -49,15 +61,19 @@ app.get('/student/:confirmID', async(req, res)=> {
 });
 
 app.post('/student/insert', async(req, res)=>{
-    try{
-        await Students.create({...req.body});
-        res.json({
-            status: 'success',
-            msg: 'One student created'
-        })
-    } catch(e) {
-        console.log(e)
+    let confirmID = genID(7);
+    async function unique(){
+        let c = await Students.findOne({confirmID});
+        console.log(c);
+        if(c){
+            unique();
+            return;
+        }
+        await Students.create({confirmID,...req.body});
+        res.redirect(`/qr-code/${confirmID}`)
     }
+
+    unique();
 });
 
 app.patch('/student/update', async(req, res)=>{
@@ -75,6 +91,28 @@ app.patch('/student/update', async(req, res)=>{
 });
 
 app.get('/student/*', (req, res)=> {
+    res.redirect('/no-student');
+});
+
+app.get('/qr-code/:confirmID', async(req, res)=>{
+    let confirmID = req.params.confirmID;
+    let student = await Students.findOne({ confirmID });
+
+    if(!student){
+        res.redirect('/no-student-found');
+        return;
+    }
+
+    console.log(student);
+    res.render('qr-code', {
+        title: 'Student Found',
+        confirmID: student.confirmID,
+        fullname: student.fullname,
+        regNo: student.regNo,
+    });
+});
+
+app.get('/no-student-found', (req, res)=>{
     res.render('no-student', {
         title: 'Student Not Found'
     });

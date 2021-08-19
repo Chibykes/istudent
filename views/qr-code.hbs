@@ -1,0 +1,25 @@
+<main>
+    
+    <div id="qrcode"></div>
+    <h1 class="text-center pt-3" style="font-size: 2rem">
+        <strong class="col-green">{{confirmID}}</strong>
+    </h1>
+    <h3 class="text-capitalize text-center pt-1">{{fullname}}</h3>
+    <p class="text-uppercase text-center pt-1">{{regNo}}</p>
+
+    <script src="/js/qrcode.min.js"></script>
+    <script type="text/javascript"> 
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 300,
+            height: 300,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        qrcode.makeCode('{{confirmID}}');
+
+    </script>
+
+
+</main>
