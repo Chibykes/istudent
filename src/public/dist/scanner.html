@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QR Scanner Demo</title>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+
+        <main>
+            <div id="result">
+                <small>
+                    <strong>
+                        Result: 
+                    </strong>
+                </small>
+                <p>
+                </p>
+            </div>
+            <div class="video">
+                <video id="qr-video"></video>
+            </div>
+        </main>
+
+
+        <script type="module">
+            let resultBox = document.querySelector('#result');
+            let output = document.querySelector('#result p');
+            import QrScanner from "./js/qr.js";
+            QrScanner.WORKER_PATH = '../js/qr-scanner-worker.min.js';
+            const video = document.getElementById('qr-video');
+            const camQrResult = document.getElementById('cam-qr-result');
+        
+            // ####### Web Cam Scanning #######
+        
+            const scanner = new QrScanner(video, result => setResult(camQrResult, result));
+        
+            function setResult(label, result) {
+                // output.innerText = result;
+                // resultBox.style.opacity = 1;
+                // console.log(result);
+        
+                scanner.stop();
+                location.href = '/student/'+result;
+            }
+        
+            scanner.start();
+        
+            // for debugging
+            window.scanner = scanner;
+        
+            video.parentNode.insertBefore(scanner.$canvas, video.nextSibling);
+            scanner.$canvas.style.display = 'block';
+        
+        
+            resultBox.onclick = () => resultBox.style.opacity = 0;
+        </script>
+        <script src="js/script.js" type="module"></script>
+    </body>
+</html>
